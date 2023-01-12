@@ -22,17 +22,42 @@ export default function App() {
         setOperator('-')
         setTempDisplayer('')
         break
+      case '+':
+        setOperator('+')
+        setTempDisplayer('')
+        break
+      case '*':
+        setOperator('*')
+        setTempDisplayer('')
+        break
+      case '/':
+        setOperator('/')
+        setTempDisplayer('')
+        break
       case '=':
-        if(operator === "-") {
-          substractor()
-          return
+        switch (operator) {
+          case '-':
+            substractor()
+            break
+          case '+':
+            adder()
+            break
+          case '*':
+            multiplier()
+            break
+          case '/':
+            divider()
+            break
+          default:
+            onPressHandler('reset')
+            break
         }
         break
       default:
-        if(operator === ''){
+        if (operator === '') {
           setTempValue1(tempValue1 + value)
           setTempDisplayer(tempDisplayer + value)
-        }else{
+        } else {
           setTempValue2(tempValue2 + value)
           setTempDisplayer(tempDisplayer + value)
         }
@@ -42,7 +67,30 @@ export default function App() {
 
   const substractor = () => {
     const output = parseInt(tempValue1) - parseInt(tempValue2)
-    // console.log(output)
+    setFinalOutput(output)
+    setTempValue1('')
+    setTempValue2('')
+    setOperator('')
+    setTempDisplayer('')
+  }
+  const adder = () => {
+    const output = parseInt(tempValue1) + parseInt(tempValue2)
+    setFinalOutput(output)
+    setTempValue1('')
+    setTempValue2('')
+    setOperator('')
+    setTempDisplayer('')
+  }
+  const multiplier = () => {
+    const output = parseInt(tempValue1) * parseInt(tempValue2)
+    setFinalOutput(output)
+    setTempValue1('')
+    setTempValue2('')
+    setOperator('')
+    setTempDisplayer('')
+  }
+  const divider = () => {
+    const output = parseInt(tempValue1) / parseInt(tempValue2)
     setFinalOutput(output)
     setTempValue1('')
     setTempValue2('')
@@ -68,7 +116,7 @@ export default function App() {
           <Text style={styles.resultText}>= {finalOutput}</Text>
         </View>
         <View style={styles.result}>
-          <Text style={styles.resultTextTemp}>{tempDisplayer === ''  && !operator ? 0 : tempDisplayer}</Text>
+          <Text style={styles.resultTextTemp}>{tempDisplayer === '' && !operator ? 0 : tempDisplayer}</Text>
         </View>
       </View>
       <View style={styles.inputArea}>
@@ -90,7 +138,7 @@ export default function App() {
           </View>
           <View style={styles.button}>
             <Pressable>
-              <Text style={[styles.buttonText, styles.buttonOperator]}>/</Text>
+              <Text onPress={() => onPressHandler('/')} style={[styles.buttonText, styles.buttonOperator]}>/</Text>
             </Pressable>
           </View>
         </View>
@@ -113,7 +161,7 @@ export default function App() {
           </View>
           <View style={styles.button}>
             <Pressable>
-              <Text style={[styles.buttonText, styles.buttonOperator]}>x</Text>
+              <Text onPress={() => onPressHandler('*')} style={[styles.buttonText, styles.buttonOperator]}>x</Text>
             </Pressable>
           </View>
         </View>
@@ -159,7 +207,7 @@ export default function App() {
           </View>
           <View style={styles.button}>
             <Pressable>
-              <Text style={[styles.buttonText, styles.buttonOperator]}>+</Text>
+              <Text onPress={() => onPressHandler('+')} style={[styles.buttonText, styles.buttonOperator]}>+</Text>
             </Pressable>
           </View>
         </View>
