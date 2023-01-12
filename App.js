@@ -11,12 +11,9 @@ export default function App() {
 
   const onPressHandler = (value) => {
     switch (value) {
-      case 'reset':
+      case 'ac':
         setFinalOutput(0)
-        setTempValue1('')
-        setTempValue2('')
-        setOperator('')
-        setTempDisplayer('')
+        reset()
         break
       case '-':
         setOperator('-')
@@ -35,23 +32,7 @@ export default function App() {
         setTempDisplayer('')
         break
       case '=':
-        switch (operator) {
-          case '-':
-            substractor()
-            break
-          case '+':
-            adder()
-            break
-          case '*':
-            multiplier()
-            break
-          case '/':
-            divider()
-            break
-          default:
-            onPressHandler('reset')
-            break
-        }
+        execute(operator)
         break
       default:
         if (operator === '') {
@@ -65,37 +46,37 @@ export default function App() {
     }
   }
 
-  const substractor = () => {
-    const output = parseInt(tempValue1) - parseInt(tempValue2)
-    setFinalOutput(output)
+  const reset = () => {
     setTempValue1('')
     setTempValue2('')
     setOperator('')
     setTempDisplayer('')
   }
-  const adder = () => {
-    const output = parseInt(tempValue1) + parseInt(tempValue2)
-    setFinalOutput(output)
-    setTempValue1('')
-    setTempValue2('')
-    setOperator('')
-    setTempDisplayer('')
-  }
-  const multiplier = () => {
-    const output = parseInt(tempValue1) * parseInt(tempValue2)
-    setFinalOutput(output)
-    setTempValue1('')
-    setTempValue2('')
-    setOperator('')
-    setTempDisplayer('')
-  }
-  const divider = () => {
-    const output = parseInt(tempValue1) / parseInt(tempValue2)
-    setFinalOutput(output)
-    setTempValue1('')
-    setTempValue2('')
-    setOperator('')
-    setTempDisplayer('')
+
+  const execute = (operator) => {
+    let output
+    switch (operator) {
+      case '+':
+        output = parseInt(tempValue1) + parseInt(tempValue2)
+        setFinalOutput(output)
+        reset()
+        break
+      case '-':
+        output = parseInt(tempValue1) - parseInt(tempValue2)
+        setFinalOutput(output)
+        reset()
+        break
+      case '*':
+        output = parseInt(tempValue1) * parseInt(tempValue2)
+        setFinalOutput(output)
+        reset()
+        break
+      case '/':
+        output = parseInt(tempValue1) / parseInt(tempValue2)
+        setFinalOutput(output)
+        reset()
+        break
+    }
   }
 
   return (
@@ -132,7 +113,7 @@ export default function App() {
           </View>
           <View style={styles.button}>
             <Pressable>
-              <Text onPress={() => onPressHandler('reset')} style={[styles.buttonText, styles.buttonOperator]}>AC</Text>
+              <Text onPress={() => onPressHandler('ac')} style={[styles.buttonText, styles.buttonOperator]}>AC</Text>
             </Pressable>
           </View>
           <View style={styles.button}>
