@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
@@ -98,11 +98,10 @@ export default function App() {
     setTempDisplayer('')
   }
 
-
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text>myCalculator</Text>
+      <View style={styles.titleArea}>
+        <Text style={styles.titleText}>myCalculator</Text>
         <StatusBar style="auto" />
       </View>
       <View
@@ -241,10 +240,17 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '8%',
+  titleArea: {
+    height: '9%',
     backgroundColor: '#4D4D4D',
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 30
+  },
+  titleText: {
+    fontSize: 15,
+    fontWeight: '300',
+    color: '#fff',
   },
   outputArea: {
     flex: 2,
